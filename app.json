@@ -1,0 +1,12 @@
+{
+  "name": "conquiste-sua-mesada",
+  "displayName": "conquiste-sua-mesada",
+  "expo": {
+    "name": "conquiste-sua-mesada",
+    "slug": "conquiste-sua-mesada",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
