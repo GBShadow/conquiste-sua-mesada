@@ -34,7 +34,7 @@ interface SignUpFormData {
   password: string;
 }
 
-const SignUp: React.FC = () => {
+export default function SignUp() {
   const formRef = useRef<FormHandles>(null);
   const emailInputRef = useRef<TextInput>(null);
   const passwordInputRef = useRef<TextInput>(null);
@@ -149,5 +149,3 @@ const SignUp: React.FC = () => {
     </KeyboardAvoidingView>
   );
 };
-
-export default SignUp;

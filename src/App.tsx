@@ -10,7 +10,7 @@ import AppProvider from './hooks';
 
 import Routes from './routes';
 
-const App: React.FC = () => {
+export default function App() {
   let [fontsLoaded] = useFonts({
     RobotoSlab_400Regular, 
     RobotoSlab_500Medium, 
@@ -33,5 +33,3 @@ const App: React.FC = () => {
     </NavigationContainer>
   )
 };
-
-export default App;

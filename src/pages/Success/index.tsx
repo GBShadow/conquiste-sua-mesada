@@ -7,7 +7,7 @@ import checkImage from '../../assets/check.png';
 
 import * as S from './styles'
 
-const Success: React.FC = () => {
+export default function Success() {
   const navigation = useNavigation();
 
   return (
@@ -29,5 +29,3 @@ const Success: React.FC = () => {
     </S.Container>
   )
 }
-
-export default Success

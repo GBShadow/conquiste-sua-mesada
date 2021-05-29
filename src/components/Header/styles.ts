@@ -1,14 +1,16 @@
 import styled from 'styled-components/native';
+import { Feather as FeatherIcon } from "@expo/vector-icons/";
+
+export const Icon = styled(FeatherIcon)`
+`;
 
 export const HeaderContainer = styled.View`
-  padding: 32px 24px;
+  padding: 32px 16px;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   background-color: #4d3795;
 `;
-
-export const TextContainer = styled.View``;
 
 export const PrincipleText = styled.Text`
   font-family: "RobotoSlab_500Medium";
@@ -22,10 +24,6 @@ export const SecondaryText = styled.Text`
   font-size: 18px;
   color: #04d361;
 `;
-
-export const MenuContainer = styled.View``;
-
-export const AvatarContainer = styled.View``;
 
 export const Avatar = styled.Image`
   width: 64px;

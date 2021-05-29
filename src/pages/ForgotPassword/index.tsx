@@ -31,7 +31,7 @@ import {
 
 import logoImg from '../../assets/logo.png';
 
-const SignIn: React.FC = () => {
+export default function SignIn() {
   const formRef = useRef<FormHandles>(null);
 
   const navigation = useNavigation();
@@ -125,5 +125,3 @@ const SignIn: React.FC = () => {
     </KeyboardAvoidingView>
   );
 };
-
-export default SignIn;

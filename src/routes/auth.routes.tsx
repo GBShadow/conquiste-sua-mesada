@@ -8,18 +8,18 @@ import ForgotPassword from '../pages/ForgotPassword';
 
 const Auth = createStackNavigator();
 
-const AuthRoutes: React.FC = () => (
-  <Auth.Navigator
-    screenOptions={{
-      headerShown: false,
-      cardStyle: { backgroundColor: '#7159C1' },
-    }}
-  >
-    <Auth.Screen name="SignIn" component={SignIn} />
-    <Auth.Screen name="SignUp" component={SignUp} />
-    <Auth.Screen name="ForgotPassword" component={ForgotPassword} />
-    <Auth.Screen name="Success" component={Success} />
-  </Auth.Navigator>
-);
-
-export default AuthRoutes;
+export default function AuthRoutes() {
+  return (
+    <Auth.Navigator
+      screenOptions={{
+        headerShown: false,
+        cardStyle: { backgroundColor: '#7159C1' },
+      }}
+    >
+      <Auth.Screen name="SignIn" component={SignIn} />
+      <Auth.Screen name="SignUp" component={SignUp} />
+      <Auth.Screen name="ForgotPassword" component={ForgotPassword} />
+      <Auth.Screen name="Success" component={Success} />
+    </Auth.Navigator>
+  );
+}

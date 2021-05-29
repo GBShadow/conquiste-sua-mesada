@@ -4,7 +4,6 @@ import {
   KeyboardAvoidingView,
   Platform,
   View,
-  ScrollView,
   TextInput,
   Alert,
 } from 'react-native';
@@ -33,7 +32,7 @@ import {
 
 import logoImg from '../../assets/logo.png';
 
-const SignIn: React.FC = () => {
+export default function SignIn() {
   const formRef = useRef<FormHandles>(null);
   const passwordInputRef = useRef<TextInput>(null);
 
@@ -142,5 +141,3 @@ const SignIn: React.FC = () => {
     </KeyboardAvoidingView>
   );
 };
-
-export default SignIn;
