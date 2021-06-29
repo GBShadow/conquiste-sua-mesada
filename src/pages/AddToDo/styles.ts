@@ -70,6 +70,4 @@ export const ButtonText = styled.Text`
   font-size: 18px;
 `;
 
-export const ButtonContainer = styled.View`
-  /* margin-top: 16px; */
-`;
+export const ButtonContainer = styled.View``;

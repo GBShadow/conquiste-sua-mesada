@@ -4,14 +4,22 @@ import React, {
   useState,
   useContext,
   useEffect,
-} from 'react';
-import AsyncStorage from '@react-native-community/async-storage';
+} from "react";
+import AsyncStorage from "@react-native-community/async-storage";
 
-import api from '../services/api';
+import api from "../services/api";
+
+interface User {
+  id: number;
+  email: string;
+  name: string;
+  avatar_url: string;
+  avatar: string | null;
+}
 
 interface AuthState {
   token: string;
-  user: object;
+  user: User;
 }
 
 interface SignInCredentials {
@@ -20,7 +28,8 @@ interface SignInCredentials {
 }
 
 interface AuthContextData {
-  user: object;
+  user: User;
+  token: string;
   signIn(credentials: SignInCredentials): Promise<void>;
   signOut(): void;
   loading: boolean;
@@ -35,8 +44,8 @@ const AuthProvider: React.FC = ({ children }) => {
   useEffect(() => {
     async function loadStorageData(): Promise<void> {
       const [token, user] = await AsyncStorage.multiGet([
-        'GoBarber:token',
-        'GoBarber:user',
+        "GoBarber:token",
+        "GoBarber:user",
       ]);
 
       if (token[1] && user[1]) {
@@ -50,7 +59,7 @@ const AuthProvider: React.FC = ({ children }) => {
   }, []);
 
   const signIn = useCallback(async ({ email, password }) => {
-    const response = await api.post('sessions', {
+    const response = await api.post("sessions", {
       email,
       password,
     });
@@ -58,23 +67,28 @@ const AuthProvider: React.FC = ({ children }) => {
     const { token, user } = response.data;
 
     await AsyncStorage.multiSet([
-      ['GoBarber:token', token],
-      ['GoBarber:user', JSON.stringify(user)],
+      ["GoBarber:token", token],
+      ["GoBarber:user", JSON.stringify(user)],
     ]);
 
     setData({ token, user });
   }, []);
 
   const signOut = useCallback(async () => {
-    await AsyncStorage.multiRemove(['GoBarber:token', 'GoBarber:user']);
+    await AsyncStorage.multiRemove(["GoBarber:token", "GoBarber:user"]);
 
     setData({} as AuthState);
   }, []);
 
   return (
-    <AuthContext.Provider value={{
-      user: data.user, signIn, signOut, loading,
-    }}
+    <AuthContext.Provider
+      value={{
+        user: data.user,
+        token: data.token,
+        signIn,
+        signOut,
+        loading,
+      }}
     >
       {children}
     </AuthContext.Provider>
@@ -85,7 +99,7 @@ function useAuth(): AuthContextData {
   const context = useContext(AuthContext);
 
   if (!context) {
-    throw new Error('useAuth must be used within an AuthProvider');
+    throw new Error("useAuth must be used within an AuthProvider");
   }
 
   return context;

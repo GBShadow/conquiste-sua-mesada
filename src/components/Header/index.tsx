@@ -41,7 +41,7 @@ const Header: React.FC<HeaderProps> = ({ type }) => {
         <S.SecondaryText>Gustavo Bezerra Sombra</S.SecondaryText>
       </View>
       <View>
-        <TouchableOpacity onPress={() => DrawerActions.openDrawer()}>
+        <TouchableOpacity onPress={() => navigation.openDrawer()}>
           <S.Avatar source={avatarImg} />
         </TouchableOpacity>
       </View>

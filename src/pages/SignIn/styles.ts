@@ -6,7 +6,7 @@ export const Container = styled.View`
   flex: 1;
   align-items: center;
   justify-content: center;
-  padding: 0 30px ${Platform.OS === "android" ? 150 : 40}px;
+  padding: 60px 30px ${Platform.OS === "android" ? 150 : 40}px;
 `;
 
 export const Title = styled.Text`
@@ -27,7 +27,7 @@ export const ForgotPasswordText = styled.Text`
 `;
 
 export const CreateAccountButton = styled.TouchableOpacity`
-   position: absolute;
+  position: absolute;
   left: 0;
   bottom: 0;
   right: 0;

@@ -76,8 +76,7 @@ export const Icon = styled(FeatherIcon)`
   margin-right: 8px;
 `;
 
-export const IconButton = styled(FeatherIcon)`
-`;
+export const IconButton = styled(FeatherIcon)``;
 
 export const InfoText = styled.Text`
   color: #fff;
@@ -89,7 +88,7 @@ export const Button = styled.TouchableOpacity`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #04D361;
+  background-color: #04d361;
   height: 48px;
   width: 48px;
   border-radius: 24px;

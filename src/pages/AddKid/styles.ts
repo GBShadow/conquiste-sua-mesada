@@ -5,8 +5,7 @@ import { Platform } from "react-native";
 export const Container = styled.View`
   flex: 1;
   align-items: center;
-  justify-content: center;
-  padding: 60px 30px ${Platform.OS === "android" ? 150 : 40}px;
+  padding: 20px 30px ${Platform.OS === "android" ? 150 : 40}px;
 `;
 
 export const ImageContainer = styled.View`
@@ -17,7 +16,8 @@ export const ImageContainer = styled.View`
 `;
 
 export const Title = styled.Text`
-  font-size: 24px;
+  font-size: 20px;
+  text-align: center;
   color: #fff;
   font-family: "RobotoSlab_500Medium";
   margin: 32px 0 24px;
