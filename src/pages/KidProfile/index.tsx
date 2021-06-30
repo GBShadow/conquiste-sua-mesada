@@ -1,10 +1,8 @@
 import React, { useCallback, useEffect } from "react";
 import { useState } from "react";
-import Header from "../../components/Header";
 import avatarImg from "../../assets/avatar2.png";
 import { Alert } from "react-native";
 
-import Button from "../../components/Button";
 import CheckBox from "../../components/CheckBox";
 import { useNavigation } from "@react-navigation/core";
 import { useRoute } from "@react-navigation/native";
@@ -17,7 +15,7 @@ type RouteParams = {
   kidId: number;
 };
 
-export default function Details() {
+export default function KidProfile() {
   const navigation = useNavigation();
   const route = useRoute();
 
@@ -99,9 +97,8 @@ export default function Details() {
 
   return (
     <S.Container>
-      <Header />
       <S.Main>
-        <S.DetailsText>Detalhes</S.DetailsText>
+        <S.DetailsText>Suas Tarefas</S.DetailsText>
         <S.MainHeaderContainer>
           <S.Avatar source={kid.avatar ? { uri: kid.avatar_url } : avatarImg} />
           <S.DetailsContainer>
@@ -130,23 +127,15 @@ export default function Details() {
             renderItem={({ item: todo }) => (
               <S.Content>
                 <S.ToDoItem>
-                  <CheckBox active={todo.active} todoId={todo.id} />
+                  <CheckBox active={todo.active} todoId={todo.id} disabled />
                   <S.ToDoInfo>
                     <S.ToDoName>{todo.name}</S.ToDoName>
                     <S.ToDoValue>{todo.value}</S.ToDoValue>
                   </S.ToDoInfo>
                 </S.ToDoItem>
-                <S.DeleteButton onPress={() => handleDeleteTodo(todo.id)}>
-                  <S.IconButton name="trash" size={16} color="#ec2106" />
-                </S.DeleteButton>
               </S.Content>
             )}
           />
-          <S.ButtonContainer>
-            <Button onPress={() => navigation.navigate("AddToDo", { kidId })}>
-              Adicionar tarefa
-            </Button>
-          </S.ButtonContainer>
         </S.ToDoContainer>
       </S.Main>
     </S.Container>

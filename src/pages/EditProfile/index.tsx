@@ -2,8 +2,9 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Alert, View, TextInput, Platform } from "react-native";
 import { Feather as FeatherIcon } from "@expo/vector-icons/";
 
-import { launchImageLibrary } from "react-native-image-picker";
-// import * as ImagePicker from "expo-image-picker";
+// import ImagePicker from "react-native-image-picker";
+import * as ImagePicker from "expo-image-picker";
+// import DocumentPicker from "react-native-document-picker";
 
 import { Form } from "@unform/mobile";
 import { FormHandles } from "@unform/core";
@@ -74,31 +75,37 @@ const EditProfile: React.FC = () => {
   // const updateAvatar = async () => {
   //   let result = await ImagePicker.launchImageLibraryAsync({
   //     mediaTypes: ImagePicker.MediaTypeOptions.Images,
+  //     quality: 1,
   //     allowsEditing: false,
+  //     base64: true,
   //   });
 
   //   if (result.cancelled) {
   //     return;
   //   }
 
-  //   const source = {
-  //     name: `avatar-${user.id}-${user.name}.jpg`,
-  //     type: "image/jpeg",
-  //     uri: result.uri,
-  //     height: result.height,
-  //     width: result.width,
-  //   };
+  //   console.log(result.base64);
 
-  //   console.log(source);
+  // const source = {
+  //   name: `avatar-${Date.now()}.jpeg`,
+  //   type: "image/jpeg",
+  //   uri: result.uri,
+  // };
 
-  //   setImage(source.uri);
+  // console.log(source);
+
+  // setImage(source.uri);
 
   //   const data = new FormData();
 
-  //   data.append("avatar", source.uri);
+  //   data.append("avatar", result.base64);
 
   //   api
-  //     .patch("/users/avatar", data)
+  //     .patch("/users/avatar", data, {
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //     })
   //     .then((response) => {
   //       Alert.alert("Avatar atualizada!");
   //     })
@@ -107,19 +114,11 @@ const EditProfile: React.FC = () => {
   //     });
   // };
 
-  const updateAvatar = useCallback(async () => {
-    await launchImageLibrary(
-      {
-        mediaType: "photo",
-        includeBase64: false,
-        maxHeight: 200,
-        maxWidth: 200,
-      },
-      (response) => {
-        console.log(response.uri);
-      }
-    );
-  }, []);
+  // const updateAvatar = useCallback(async () => {
+  //   ImagePicker.showImagePicker({}, (response) => {
+  //     console.log(response.uri);
+  //   });
+  // }, []);
 
   return (
     <S.Container>
@@ -129,7 +128,7 @@ const EditProfile: React.FC = () => {
       <View style={{ height: 180 }}>
         <S.ImageContainer>
           <S.Avatar source={image ? { uri: image } : avatar} />
-          <S.IconContainer onPress={updateAvatar}>
+          <S.IconContainer onPress={() => {}}>
             <FeatherIcon name="camera" color="#fff" size={25} />
           </S.IconContainer>
         </S.ImageContainer>

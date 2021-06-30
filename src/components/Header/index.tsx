@@ -44,7 +44,9 @@ const Header: React.FC<HeaderProps> = ({ type }) => {
       </View>
       <View>
         <TouchableOpacity onPress={() => navigation.openDrawer()}>
-          <S.Avatar source={avatarImg} />
+          <S.Avatar
+            source={user.avatar ? { uri: user.avatar_url } : avatarImg}
+          />
         </TouchableOpacity>
       </View>
     </S.HeaderContainer>

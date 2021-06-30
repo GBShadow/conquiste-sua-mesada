@@ -6,9 +6,10 @@ import { useAuth } from "../../hooks/auth";
 type Props = {
   active: boolean;
   todoId: number;
+  disabled: boolean;
 };
 
-const CheckBoxComponent = ({ active, todoId }: Props) => {
+const CheckBoxComponent = ({ active, todoId, disabled }: Props) => {
   const [completed, setCompleted] = useState(active);
 
   const { token } = useAuth();
@@ -36,6 +37,7 @@ const CheckBoxComponent = ({ active, todoId }: Props) => {
       value={completed}
       onValueChange={() => setCompleted(!completed)}
       tintColors={{ true: "#04d361" }}
+      disabled={disabled}
     />
   );
 };

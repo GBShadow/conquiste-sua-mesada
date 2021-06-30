@@ -43,17 +43,30 @@ export const ListContainer = styled.FlatList.attrs({
   flex: 1;
 `;
 
-export const ItemContainer = styled.TouchableOpacity`
+export const Content = styled.View`
   flex-direction: row;
   align-items: center;
-  padding: 20px 14px;
   background-color: #8d79cd;
   border-radius: 8px;
   margin-bottom: 24px;
+  padding: 5px;
+  justify-content: space-between;
+`;
+
+export const DeleteButton = styled.TouchableOpacity`
+  height: 100%;
+  justify-content: flex-start;
+  padding-top: 10px;
+`;
+
+export const ItemContainer = styled.TouchableOpacity`
+  align-items: center;
+  justify-content: space-between;
 `;
 
 export const DetailsContainer = styled.View`
   margin-left: 16px;
+  padding: 5px;
 `;
 
 export const Name = styled.Text`

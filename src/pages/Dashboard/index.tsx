@@ -2,12 +2,14 @@ import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 
 import avatarImg from "../../assets/avatar.png";
+import avatarImg2 from "../../assets/avatar2.png";
 
 import api from "../../services/api";
 import Header from "../../components/Header";
 import { useAuth } from "../../hooks/auth";
 
 import * as S from "./styles";
+import { TouchableOpacity, Alert, View } from "react-native";
 
 export type Todo = {
   id: number;
@@ -24,6 +26,8 @@ export type Kid = {
   totalValue: number;
   todosTotal: number;
   todosCompleted: number;
+  avatar_url: string;
+  avatar: string | null;
 };
 
 export default function Dashboard() {
@@ -81,6 +85,31 @@ export default function Dashboard() {
     loadData();
   }, [kids]);
 
+  const handleDeleteKid = async (id: number) => {
+    Alert.alert(
+      "Deletar criança/adolescente",
+      "Gostaria de Apagar essa criança/adolescente?",
+      [
+        {
+          text: "Apagar",
+          onPress: async () => {
+            await api.delete(`/kids/${id}`, {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            });
+          },
+        },
+        {
+          text: "Cancel",
+          onPress: () => {
+            return;
+          },
+        },
+      ]
+    );
+  };
+
   return (
     <S.Container>
       <Header type="dash" />
@@ -90,28 +119,44 @@ export default function Dashboard() {
           data={kids}
           keyExtractor={(kid: Kid) => String(kid.id)}
           renderItem={({ item: kid }) => (
-            <S.ItemContainer
-              onPress={() => navigation.navigate("Details", { kidId: kid.id })}
-            >
-              <S.Avatar source={avatarImg} />
-              <S.DetailsContainer>
-                <S.Name>{kid.name}</S.Name>
-                <S.InfoContainer>
-                  <S.Info>
-                    <S.Icon name="check-square" size={16} color="#04D361" />
-                    <S.InfoText>
-                      Tarefas - {kid.todosCompleted} de {kid.todosTotal}
-                    </S.InfoText>
-                  </S.Info>
-                  <S.Info>
-                    <S.Icon name="dollar-sign" size={16} color="#04D361" />
-                    <S.InfoText>
-                      Mesada: R$ {kid.totalValue} - Atual: R$ {kid.parcialValue}
-                    </S.InfoText>
-                  </S.Info>
-                </S.InfoContainer>
-              </S.DetailsContainer>
-            </S.ItemContainer>
+            <S.Content>
+              <S.ItemContainer
+                onPress={() =>
+                  navigation.navigate("Details", { kidId: kid.id })
+                }
+              >
+                <View
+                  style={{
+                    flex: 1,
+                    flexDirection: "row",
+                    alignItems: "center",
+                  }}
+                >
+                  <S.Avatar source={avatarImg2} />
+                  <S.DetailsContainer>
+                    <S.Name>{kid.name}</S.Name>
+                    <S.InfoContainer>
+                      <S.Info>
+                        <S.Icon name="check-square" size={16} color="#04D361" />
+                        <S.InfoText>
+                          Tarefas - {kid.todosCompleted} de {kid.todosTotal}
+                        </S.InfoText>
+                      </S.Info>
+                      <S.Info>
+                        <S.Icon name="dollar-sign" size={16} color="#04D361" />
+                        <S.InfoText>
+                          Mesada: R$ {kid.totalValue} - Atual: R${" "}
+                          {kid.parcialValue}
+                        </S.InfoText>
+                      </S.Info>
+                    </S.InfoContainer>
+                  </S.DetailsContainer>
+                </View>
+              </S.ItemContainer>
+              <S.DeleteButton onPress={() => handleDeleteKid(kid.id)}>
+                <S.IconButton name="trash" size={16} color="#ec2106" />
+              </S.DeleteButton>
+            </S.Content>
           )}
         />
         <S.Button onPress={() => navigation.navigate("AddKid")}>

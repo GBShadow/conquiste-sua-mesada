@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
 import {
   DrawerItem,
-  DrawerItemList,
   DrawerContentScrollView,
   DrawerContentComponentProps,
-  DrawerContentOptions,
 } from "@react-navigation/drawer";
 import { Feather as FeatherIcon } from "@expo/vector-icons/";
 
@@ -12,6 +10,7 @@ import { useAuth } from "../../hooks/auth";
 import { View, Image, Text, TouchableOpacity } from "react-native";
 
 import avatar from "../../assets/avatar.png";
+import avatar2 from "../../assets/avatar2.png";
 
 import * as S from "./styles";
 import { Kid } from "../../pages/Dashboard";
@@ -74,7 +73,7 @@ export default function DrawerContent({ user, props }: DrawerContentProps) {
             <TouchableOpacity
               key={kid.id}
               onPress={() =>
-                props.navigation.navigate("Kid", { kidId: kid.id })
+                props.navigation.navigate("KidProfile", { kidId: kid.id })
               }
               style={{
                 backgroundColor: "#8D79CD",
@@ -87,7 +86,7 @@ export default function DrawerContent({ user, props }: DrawerContentProps) {
             >
               <View style={{ flexDirection: "row", alignItems: "center" }}>
                 <Image
-                  source={kid.avatar ? { uri: kid.avatar_url } : avatar}
+                  source={kid.avatar ? { uri: kid.avatar_url } : avatar2}
                   style={{
                     width: 60,
                     height: 60,
