@@ -7,6 +7,8 @@ import { DrawerActions } from "@react-navigation/native";
 import avatarImg from "../../assets/avatar.png";
 
 import * as S from "./styles";
+import { useAuth } from "../../hooks/auth";
+import { color } from "react-native-reanimated";
 
 interface HeaderProps {
   type?: "dash";
@@ -17,6 +19,8 @@ const Header: React.FC<HeaderProps> = ({ type }) => {
 
   const [title, setTitle] = useState("");
   const [showButton, setShowButton] = useState(true);
+
+  const { user } = useAuth();
 
   useEffect(() => {
     if (type === "dash") {
@@ -29,16 +33,14 @@ const Header: React.FC<HeaderProps> = ({ type }) => {
 
   return (
     <S.HeaderContainer>
-      {showButton ? (
+      {showButton && (
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <S.Icon name="arrow-left" color="#fff" size={30} />
         </TouchableOpacity>
-      ) : (
-        <View />
       )}
       <View>
         <S.PrincipleText>{title}</S.PrincipleText>
-        <S.SecondaryText>Gustavo Bezerra Sombra</S.SecondaryText>
+        <S.SecondaryText>{user.name}</S.SecondaryText>
       </View>
       <View>
         <TouchableOpacity onPress={() => navigation.openDrawer()}>

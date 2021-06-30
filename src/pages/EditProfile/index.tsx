@@ -1,6 +1,9 @@
-import React, { useCallback, useRef } from "react";
-import { Alert, View, TextInput, TouchableOpacity } from "react-native";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import { Alert, View, TextInput, Platform } from "react-native";
 import { Feather as FeatherIcon } from "@expo/vector-icons/";
+
+import { launchImageLibrary } from "react-native-image-picker";
+// import * as ImagePicker from "expo-image-picker";
 
 import { Form } from "@unform/mobile";
 import { FormHandles } from "@unform/core";
@@ -24,29 +27,98 @@ const EditProfile: React.FC = () => {
   const newPasswordInputRef = useRef<TextInput>(null);
   const confirmationPasswordInputRef = useRef<TextInput>(null);
 
-  const { token } = useAuth();
+  const [image, setImage] = useState<string | null>(null);
 
-  const handleSignIn = useCallback(async (data) => {
-    console.log(data);
-    try {
-      await api.put(
-        "/profile",
-        { name: data.name, email: data.email },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+  const { token, user, updateUser } = useAuth();
 
-      Alert.alert("Sucesso", "Atualização realizada com sucesso.");
-    } catch (err) {
-      console.log(err);
-      Alert.alert(
-        "Erro na atualização",
-        "Ocorreu um erro ao atualizar perfil."
-      );
-    }
+  const handleUpdateUser = useCallback(
+    async (data) => {
+      try {
+        const response = await api.put(
+          "/profile",
+          { name: data.name, email: data.email },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        updateUser(response.data);
+
+        Alert.alert("Sucesso", "Atualização realizada com sucesso.");
+        navigation.goBack();
+      } catch (err) {
+        console.log(err);
+        Alert.alert(
+          "Erro na atualização",
+          "Ocorreu um erro ao atualizar perfil."
+        );
+      }
+    },
+    [updateUser]
+  );
+
+  // useEffect(() => {
+  //   (async () => {
+  //     if (Platform.OS !== "web") {
+  //       const { status } =
+  //         await ImagePicker.requestMediaLibraryPermissionsAsync();
+  //       if (status !== "granted") {
+  //         alert("Sorry, we need camera roll permissions to make this work!");
+  //       }
+  //     }
+  //   })();
+  // }, []);
+
+  // const updateAvatar = async () => {
+  //   let result = await ImagePicker.launchImageLibraryAsync({
+  //     mediaTypes: ImagePicker.MediaTypeOptions.Images,
+  //     allowsEditing: false,
+  //   });
+
+  //   if (result.cancelled) {
+  //     return;
+  //   }
+
+  //   const source = {
+  //     name: `avatar-${user.id}-${user.name}.jpg`,
+  //     type: "image/jpeg",
+  //     uri: result.uri,
+  //     height: result.height,
+  //     width: result.width,
+  //   };
+
+  //   console.log(source);
+
+  //   setImage(source.uri);
+
+  //   const data = new FormData();
+
+  //   data.append("avatar", source.uri);
+
+  //   api
+  //     .patch("/users/avatar", data)
+  //     .then((response) => {
+  //       Alert.alert("Avatar atualizada!");
+  //     })
+  //     .catch((error) => {
+  //       Alert.alert(`Error ao atualizar avatar`, error);
+  //     });
+  // };
+
+  const updateAvatar = useCallback(async () => {
+    await launchImageLibrary(
+      {
+        mediaType: "photo",
+        includeBase64: false,
+        maxHeight: 200,
+        maxWidth: 200,
+      },
+      (response) => {
+        console.log(response.uri);
+      }
+    );
   }, []);
 
   return (
@@ -56,8 +128,8 @@ const EditProfile: React.FC = () => {
       </S.GoBack>
       <View style={{ height: 180 }}>
         <S.ImageContainer>
-          <S.Avatar source={avatar} />
-          <S.IconContainer>
+          <S.Avatar source={image ? { uri: image } : avatar} />
+          <S.IconContainer onPress={updateAvatar}>
             <FeatherIcon name="camera" color="#fff" size={25} />
           </S.IconContainer>
         </S.ImageContainer>
@@ -65,7 +137,7 @@ const EditProfile: React.FC = () => {
 
       <S.Title>Editar perfil</S.Title>
 
-      <Form ref={formRef} onSubmit={handleSignIn}>
+      <Form initialData={user} ref={formRef} onSubmit={handleUpdateUser}>
         <Input
           autoCorrect={false}
           autoCapitalize="none"

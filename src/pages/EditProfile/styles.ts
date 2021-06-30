@@ -25,7 +25,7 @@ export const Avatar = styled.Image`
   border-radius: 70px;
 `;
 
-export const IconContainer = styled.View`
+export const IconContainer = styled.TouchableOpacity`
   position: absolute;
   bottom: 0;
   right: 0;

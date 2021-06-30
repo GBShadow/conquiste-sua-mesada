@@ -1,11 +1,10 @@
-import styled from 'styled-components/native';
+import styled from "styled-components/native";
 import { Feather as FeatherIcon } from "@expo/vector-icons/";
 
-export const Icon = styled(FeatherIcon)`
-`;
+export const Icon = styled(FeatherIcon)``;
 
 export const HeaderContainer = styled.View`
-  padding: 32px 16px;
+  padding: 32px 30px;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
