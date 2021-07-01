@@ -1,12 +1,19 @@
 {
   "name": "conquiste-sua-mesada",
-  "displayName": "conquiste-sua-mesada",
+  "displayName": "Conquiste sua Mesada",
   "expo": {
-    "name": "conquiste-sua-mesada",
+    "name": "Conquiste sua Mesada",
     "slug": "conquiste-sua-mesada",
+    "icon": "./src/assets/icon.png",
+    "splash": {
+      "image": "./src/assets/splash.png",
+      "backgroundColor": "#7159c1"
+    },
     "version": "1.0.0",
-    "assetBundlePatterns": [
-      "**/*"
-    ]
+    "android": {
+      "package": "com.gbshadow.conquistesuamesada",
+      "versionCode": 1
+    },
+    "assetBundlePatterns": ["**/*"]
   }
 }

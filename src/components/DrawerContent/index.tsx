@@ -67,8 +67,34 @@ export default function DrawerContent({ user, props }: DrawerContentProps) {
           </TouchableOpacity>
         </S.HeaderMenu>
       </S.HeaderContainer>
+      <TouchableOpacity
+        onPress={() => props.navigation.navigate("LockUser")}
+        style={{
+          backgroundColor: "#8D79CD",
+          padding: 10,
+          height: 80,
+          margin: 10,
+          borderRadius: 10,
+          justifyContent: "center",
+        }}
+      >
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <Image
+            source={user.avatar ? { uri: user.avatar_url } : avatar}
+            style={{
+              width: 60,
+              height: 60,
+              borderRadius: 30,
+              marginRight: 15,
+            }}
+          />
+          <S.ItemName>{name}</S.ItemName>
+        </View>
+      </TouchableOpacity>
       <DrawerContentScrollView {...props} style={{ flex: 1 }}>
         {kids.map((kid) => {
+          const [name] = kid.name.split(" ");
+
           return (
             <TouchableOpacity
               key={kid.id}
@@ -94,7 +120,7 @@ export default function DrawerContent({ user, props }: DrawerContentProps) {
                     marginRight: 15,
                   }}
                 />
-                <S.ItemName>{kid.name}</S.ItemName>
+                <S.ItemName>{name}</S.ItemName>
               </View>
             </TouchableOpacity>
           );

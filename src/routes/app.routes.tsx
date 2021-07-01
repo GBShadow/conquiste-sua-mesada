@@ -7,6 +7,7 @@ import AddToDo from "../pages/AddToDo";
 import KidProfile from "../pages/KidProfile";
 import AddKid from "../pages/AddKid";
 import EditProfile from "../pages/EditProfile";
+import LockUser from "../pages/LockUser";
 import Success2 from "../pages/Success2";
 
 const App = createStackNavigator();
@@ -25,6 +26,7 @@ export default function AppRoutes() {
       <App.Screen name="AddKid" component={AddKid} />
       <App.Screen name="KidProfile" component={KidProfile} />
       <App.Screen name="EditProfile" component={EditProfile} />
+      <App.Screen name="LockUser" component={LockUser} />
       <App.Screen name="Success2" component={Success2} />
     </App.Navigator>
   );

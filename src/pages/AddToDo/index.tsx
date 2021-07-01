@@ -46,7 +46,6 @@ export default function AddToDo() {
   const handleAddTodo = useCallback(
     async ({ todos }: TodoFormData) => {
       try {
-        console.log(todos);
         await api.post(
           "/todos",
           { todos, kid_id: kidId },
