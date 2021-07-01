@@ -85,7 +85,7 @@ const EditProfile = () => {
     data2.append("avatar", {
       name: `${Date.now()}-${user.id}.jpeg`,
       uri: data.uri,
-      type: "image/jpg",
+      type: "image/jpeg",
     });
 
     const response = await api.patch("/users/avatar", data2, {
